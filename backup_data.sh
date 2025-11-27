@@ -20,14 +20,12 @@ backup_data() {
 
     echo "📁 Backing up to: $work"
 
-    # Main user folders
     normal_folders=("Documents" "Pictures" "Videos" "Music" "Desktop" "Downloads")
 
     for f in "${normal_folders[@]}"; do
         [ -d "$HOME/$f" ] && rsync -av --delete "$HOME/$f/" "$work/$f/"
     done
 
-    # Important hidden folders
     hidden_items=(
         ".ssh"
         ".config"
@@ -47,7 +45,6 @@ backup_data() {
         [ -e "$HOME/$item" ] && rsync -av --delete "$HOME/$item/" "$work/$item/"
     done
 
-    # Opera Profile
     if [ -d "$HOME/.config/opera" ]; then
         rsync -av --delete "$HOME/.config/opera/" "$work/opera_profile/"
     fi
