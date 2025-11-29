@@ -152,19 +152,19 @@ restore_data() {
 # --------------------------------
 #  Script menu
 # --------------------------------
-check_tools
-
-echo "============================"
-echo "   Secure Backup Utility"
-echo "============================"
-echo "1) Backup"
-echo "2) Restore"
-echo "3) Exit"
-read -p "Choose an option: " choice
-
-case "$choice" in
-    1) backup_data ;;
-    2) restore_data ;;
-    3) exit 0 ;;
-    *) echo "Invalid choice." ;;
+case "$1" in
+    -b | --backup)
+        check_tools
+        backup_data
+        ;;
+    -r | --restore)
+        check_tools
+        restore_data
+        ;;
+    *)
+        echo -e "Usage: \e[1;37m$0\e[0m [OPTION]\n\nOptions:"
+        echo -e "  \e[1;32m-b\e[0;32m, \e[1;32m--backup\e[0m    store your files in an encrypted backup"
+        echo -e "  \e[1;33m-r\e[1;33m, \e[1;33m--restore\e[0m   restore your files from an encrypted backup"
+        exit 1
+        ;;
 esac
